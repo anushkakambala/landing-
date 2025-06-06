@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Features Section</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f2f5;
+    }
+
+    /* FEATURES SECTION */
+    .features-section {
+      background: #ffffff;
+      padding: 90px 40px;
+    }
+
+    .features-container {
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+      animation: fadeIn 1.2s ease-in;
+    }
+
+    .features-container h2 {
+      font-size: 3rem;
+      color: #0f3460;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .features-container h2::after {
+      content: '';
+      display: block;
+      width: 70px;
+      height: 4px;
+      background-color: #e94560;
+      margin: 10px auto 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: #f4f6f9;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: #e94560;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      color: #0f3460;
+      margin-bottom: 15px;
+    }
+
+    .feature-card p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MODAL */
+    .feature-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0; top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 15, 30, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      max-width: 500px;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      position: relative;
+      animation: popFade 0.3s ease;
+    }
+
+    .modal-content h3 {
+      color: #0f3460;
+      margin-bottom: 15px;
+    }
+
+    .modal-content p {
+      color: #444;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #e94560;
+    }
+
+    @keyframes popFade {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .features-container h2 {
+        font-size: 2.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FEATURES SECTION -->
+  <section id="features" class="features-section">
+    <div class="features-container">
+      <h2>Our Features</h2>
+      <div class="features-grid">
+        <div class="feature-card" data-title="Fast Performance" data-description="We ensure your site loads in milliseconds using optimized code and caching.">
+          <div class="feature-icon">⚡</div>
+          <h3>Fast Performance</h3>
+          <p>Our websites are optimized for speed.</p>
+        </div>
+        <div class="feature-card" data-title="Responsive Design" data-description="Designed to adapt seamlessly to all screen sizes — desktops, tablets, and mobiles.">
+          <div class="feature-icon">📱</div>
+          <h3>Responsive Design</h3>
+          <p>Looks great on any device.</p>
+        </div>
+        <div class="feature-card" data-title="Secure & Reliable" data-description="Top-level security with HTTPS, secure forms, and data protection mechanisms.">
+          <div class="feature-icon">🔒</div>
+          <h3>Secure & Reliable</h3>
+          <p>Protected with modern web standards.</p>
+        </div>
+        <div class="feature-card" data-title="Modern UI" data-description="Sleek, interactive, and user-friendly interface designs that your users will love.">
+          <div class="feature-icon">🎨</div>
+          <h3>Modern UI</h3>
+          <p>Engaging and beautiful interfaces.</p>
+        </div>
+        <div class="feature-card" data-title="Easy Customization" data-description="Quickly change text, images, and styles to suit your brand’s needs.">
+          <div class="feature-icon">🛠️</div>
+          <h3>Easy Customization</h3>
+          <p>Modify content effortlessly.</p>
+        </div>
+        <div class="feature-card" data-title="SEO Friendly" data-description="Search-engine optimized structure and metadata for better online visibility.">
+          <div class="feature-icon">📈</div>
+          <h3>SEO Friendly</h3>
+          <p>Helps you rank higher in searches.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div class="feature-modal" id="featureModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">×</span>
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    const featureCards = document.querySelectorAll('.feature-card');
+    const modal = document.getElementById('featureModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+
+    featureCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const title = card.getAttribute('data-title');
+        const description = card.getAttribute('data-description');
+
+        modalTitle.textContent = title;
+        modalDesc.textContent = description;
+        modal.style.display = 'flex';
+      });
+    });
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(e) {
+      if (e.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
